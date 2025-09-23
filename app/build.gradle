@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'limsapp'
+    namespace 'n.vrn.limsapp'
     compileSdk 34
 
     defaultConfig {
