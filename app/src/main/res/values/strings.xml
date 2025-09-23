@@ -1,5 +1,9 @@
-<string-array name="sample_status_array">
-    <item>Pending</item>
-    <item>In Progress</item>
-    <item>Completed</item>
-</string-array>
+<resources>
+    <string name="app_name">LiMS App</string>
+
+    <string-array name="sample_status_array">
+        <item>Pending</item>
+        <item>In Progress</item>
+        <item>Completed</item>
+    </string-array>
+</resources>
