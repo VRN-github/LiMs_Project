@@ -7,9 +7,16 @@ import androidx.room.PrimaryKey;
 public class Sample {
     @PrimaryKey(autoGenerate = true)
     public int id;
-    public String name;
 
-    public Sample(String name) {
+    public String name;
+    public String type;
+    public String status;
+    public long timestamp;
+
+    public Sample(String name, String type, String status, long timestamp) {
         this.name = name;
+        this.type = type;
+        this.status = status;
+        this.timestamp = timestamp;
     }
 }
