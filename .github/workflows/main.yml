@@ -1,52 +1,41 @@
-name: Android CI (Build LIMS APK)
+name: Build LIMS APK
 
 on:
   push:
     branches:
       - main
+    paths:
+      - '**/*.java'
+      - '**/*.xml'
+      - '**/*.gradle'
+      - 'gradle/**'
+      - 'gradlew'
+      - 'settings.gradle'
+      - 'build.gradle'
 
 jobs:
   build:
+    name: Build APK
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Unzip project
-        run: unzip -o LiMs_Project.zip -d LiMs_Project
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
           distribution: 'temurin'
+          java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-        with:
-          api-level: 33
-          build-tools: 33.0.2
+      - name: Grant execute permission to Gradle wrapper
+        run: chmod +x ./gradlew
 
-      - name: Find gradlew path
-        id: find_gradlew
-        run: |
-          GRADLEW_PATH=$(find LiMs_Project -name gradlew -type f | head -n 1)
-          if [ -z "$GRADLEW_PATH" ]; then
-            echo "gradlew not found!"
-            exit 1
-          fi
-          echo "gradlew path: $GRADLEW_PATH"
-          echo "GRADLEW_PATH=$GRADLEW_PATH" >> $GITHUB_ENV
-
-      - name: Make gradlew executable
-        run: chmod +x $GRADLEW_PATH
-
-      - name: Build APK
-        run: $GRADLEW_PATH assembleDebug
+      - name: Build debug APK
+        run: ./gradlew assembleDebug
 
       - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
-          name: LiMs-APK
+          name: LIMS-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
