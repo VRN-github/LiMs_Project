@@ -14,8 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout code (full depth)
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up JDK
         uses: actions/setup-java@v3
@@ -28,6 +30,9 @@ jobs:
 
       - name: Print AndroidManifest.xml contents
         run: cat app/src/main/AndroidManifest.xml
+
+      - name: List all manifest files
+        run: find app/src/ -name AndroidManifest.xml -exec echo "---- {} ----" \; -exec cat {} \;
 
       - name: Build with Gradle
         run: ./gradlew assembleDebug
