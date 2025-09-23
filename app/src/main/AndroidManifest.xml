@@ -1,14 +1,26 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="n.vrn.limsapp">
 
     <application
         android:allowBackup="true"
-        android:label="LiMs App"
+        android:label="LiMS App"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+        <!-- Admin Dashboard -->
+        <activity android:name=".AdminDashboardActivity" />
+
+        <!-- Technician Dashboard -->
+        <activity android:name=".TechnicianDashboardActivity" />
+
+        <!-- Main Sample Management Activity -->
+        <activity android:name=".MainActivity" />
+
+        <!-- Login Activity (Launcher) -->
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
