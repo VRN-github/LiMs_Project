@@ -1,0 +1,5 @@
+<string-array name="sample_status_array">
+    <item>Pending</item>
+    <item>In Progress</item>
+    <item>Completed</item>
+</string-array>
