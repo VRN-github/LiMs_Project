@@ -1,4 +1,4 @@
-name: Android CI (Build from ZIP)
+name: Android CI (Build LIMS APK)
 
 on:
   push:
@@ -10,31 +10,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repo
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Unzip project directly (avoids nested folder)
       - name: Unzip project
-        run: unzip -o LiMs_Project.zip
+        run: unzip -o LiMs_Project.zip -d LiMs_Project
 
-      # 3️⃣ Set up JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # 4️⃣ Set up Android SDK
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          api-level: 33
+          build-tools: 33.0.2
 
-      # 5️⃣ Build APK using Gradle wrapper
+      - name: Grant execute permission for gradlew
+        run: chmod +x LiMs_Project/gradlew
+
       - name: Build APK
-        run: ./LiMs_Project/gradlew assembleDebug
+        run: cd LiMs_Project && ./gradlew assembleDebug
 
-      # 6️⃣ Upload APK artifact (v4, not deprecated)
-      - name: Upload APK
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: LiMs-APK
